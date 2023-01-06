@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import app from '../firebase/config'
 import { getFirestore, updateDoc, doc, collection, setDoc } from 'firebase/firestore'
-// import { async } from '@firebase/util'
-const firestore = getFirestore(app)
 
 const Encuesta = () => {
+    const firestore = getFirestore(app)
     const history = useHistory();
 
     const [enc, setEnc] = useState({})
-
     const [input, setInput] = useState({
         full_name: "",
         email: "",
@@ -24,14 +22,9 @@ const Encuesta = () => {
         async function getData() {
             const res = await axios.get("json/items.json")
             setEnc(res.data)
-            // console.log("enc",enc)
         }
         getData()
     }, [])
-
-    // if (!enc) {
-    //     return <p>cargando</p>
-    // }
 
     const handleInputChange = (e) => {
         setInput({
@@ -143,11 +136,7 @@ const Encuesta = () => {
                     };
                     return renderItem();
                 })}
-                {/* <div>
-                    <button>Enviar</button>
-                </div> */}
             </form>
-
         </div>
     )
 }
