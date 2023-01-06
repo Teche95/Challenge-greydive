@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import app from '../firebase/config'
 import { getFirestore, updateDoc, doc, collection, setDoc } from 'firebase/firestore'
+import { Redirect } from "react-router-dom"
 
 const Encuesta = () => {
     const firestore = getFirestore(app)
@@ -53,7 +54,8 @@ const Encuesta = () => {
             terms_and_conditions: "",
         })
         alert("Formulario enviado")
-        history.push("/respuestas")
+        // history.push("/respuestas")
+        return <Redirect to="/respuestas" />
     }
 
     return (
