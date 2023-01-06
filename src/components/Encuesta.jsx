@@ -54,8 +54,8 @@ const Encuesta = () => {
             terms_and_conditions: "",
         })
         alert("Formulario enviado")
-        // history.push("/respuestas")
-        return <Redirect to="/respuestas" />
+        return history.push("/respuestas")
+        // return <Redirect to="/respuestas" />
     }
 
     return (
