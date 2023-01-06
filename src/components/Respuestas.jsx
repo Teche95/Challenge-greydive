@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getFirestore, updateDoc, doc, collection, setDoc, getDoc } from 'firebase/firestore'
 import app from '../firebase/config'
-const firestore = getFirestore(app)
 
 const Respuestas = () => {
     const [info, setInfo] = useState(null)
+    const firestore = getFirestore(app)
 
     useEffect(() => {
         async function buscar() {
@@ -15,8 +15,6 @@ const Respuestas = () => {
         buscar()
     }, [])
 
-
-    console.log(info)
     return (
         <div>
             {info ?
