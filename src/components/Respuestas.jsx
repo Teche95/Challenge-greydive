@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getFirestore, updateDoc, doc, collection, setDoc, getDoc } from 'firebase/firestore'
 import app from '../firebase/config'
+import s from "../styles/encuesta.module.css"
+
 
 const Respuestas = () => {
     const [info, setInfo] = useState(null)
@@ -16,9 +18,10 @@ const Respuestas = () => {
     }, [])
 
     return (
-        <div>
+        <div className={s.respuestas}>
             {info ?
-                <div>
+                <div >
+                    <h1>Respuestas</h1>
                     <p>Nombre completo: {info.full_name}</p>
                     <p>Correo electrónico: {info.email}</p>
                     <p>Fecha de nacimiento: {info.birth_date}</p>
