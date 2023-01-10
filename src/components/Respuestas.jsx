@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFirestore, updateDoc, doc, collection, setDoc, getDoc } from 'firebase/firestore'
+import { getFirestore, getDocs, collection } from 'firebase/firestore'
 import app from '../firebase/config'
 import s from "../styles/encuesta.module.css"
 
@@ -10,25 +10,25 @@ const Respuestas = () => {
 
     useEffect(() => {
         async function buscar() {
-            const docuRef = doc(firestore, "respuestas/formcompleted")
-            const documento = await getDoc(docuRef)
-            setInfo(documento.data())
+            const docuRef = collection(firestore, "respuestas")
+            const documento = await getDocs(docuRef)
+            setInfo(documento.docs.map(prod => ({ id: prod.id, ...prod.data() })))
         }
         buscar()
     }, [])
 
     return (
-        <div className={s.respuestas}>
-            {info ?
-                <div >
-                    <h1>Respuestas</h1>
-                    <p>Nombre completo: {info.full_name}</p>
-                    <p>Correo electrónico: {info.email}</p>
-                    <p>Fecha de nacimiento: {info.birth_date}</p>
-                    <p>¿Cuál es tu país de origen?: {info.country_of_origin}</p>
-                    <p>¿Acepta los términos y condiciones?: {info.terms_and_conditions}</p>
-                </div>
-                : <h3>Cargando...</h3>
+        <div className={s.enc}>
+            {
+                info?.map(produ => (
+                    <div className={s.resp}>
+                        <p>Nombre completo: {produ.full_name}</p>
+                        <p>Correo electrónico: {produ.email}</p>
+                        <p>Fecha de nacimiento: {produ.birth_date}</p>
+                        <p>¿Cuál es tu país de origen?: {produ.country_of_origin}</p>
+                        <p>¿Acepta los términos y condiciones?: {produ.terms_and_conditions}</p>
+                    </div>
+                ))
             }
         </div >
 
@@ -40,13 +40,3 @@ const Respuestas = () => {
 
 export default Respuestas
 
-// export async function getUserInfo(uid) {
-//     const docRef = doc(db, "users", uid);
-//     const docSnap = await getDoc(docRef);
-//     return docSnap.data();
-// }
-
-
-// const collectionRef = collection(firestore, "respuestas")
-//         const docRef = doc(collectionRef, "formcompleted")
-//         await setDoc(docRef, input)
